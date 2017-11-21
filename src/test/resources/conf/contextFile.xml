@@ -18,6 +18,8 @@
 -->
 <!-- The contents of this file will be loaded for each web application -->
 <Context>
-	<Parameter name="xbdd.mongo.hostname" value="localhost" />
-	<Parameter name="xbdd.mongo.port" value="${mongo.port}" />
+	<Parameter name="xbdd.mongo.hostname" value="cluster0-shard-00-00-l60c1.mongodb.net"/>
+    <Parameter name="xbdd.mongo.port" value="27017"/>
+    <Parameter name="xbdd.mongo.username" value="test"/>
+    <Parameter name="xbdd.mongo.password" value="YEQf8F1ux9jjo9h5"/>
 </Context>  

@@ -39,8 +39,10 @@ public class XbddDriver extends EventFiringWebDriver {
 
 	private static WebDriver createDriver() throws MalformedURLException {
 		final WebDriver driver;
+		System.setProperty("selenium.profile", "chrome");
 		switch (getSeleniumProfile()) {
 			case "chrome":
+				System.setProperty("webdriver.chrome.driver", "C:/git3/selenium-samples-java/chromedriver.exe");
 				driver = new ChromeDriver();
 				break;
 			case "phantom-js":
