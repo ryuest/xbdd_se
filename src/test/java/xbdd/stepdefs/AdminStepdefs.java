@@ -36,7 +36,7 @@ import xbdd.utils.XBDDInstance;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class AdminStepdefs {
+public class AdminStepdefs extends XbddDriver{
 
 	private final WebDriver webDriver;
 	private final XBDDInstance xbddInstance;
@@ -48,8 +48,8 @@ public class AdminStepdefs {
 	private Response renameResp;
 	private Client client;
 
-	public AdminStepdefs(final XbddDriver driver, final XBDDInstance xbddInstance) {
-		this.webDriver = driver;
+	public AdminStepdefs(final XBDDInstance xbddInstance) {
+		webDriver = driver;
 		this.xbddInstance = xbddInstance;
 		this.adminClient = JerseyClientFactory.getInstance().createAdminAuthenticatingClient();
 		this.userClient = JerseyClientFactory.getInstance().createAuthenticatingClient();
@@ -59,7 +59,7 @@ public class AdminStepdefs {
 	@When("^a rename request is sent$")
 	public void a_rename_request_is_sent() {
 		this.webDriver.navigate().to(this.xbddInstance.getBaseURL());
-		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
+	//	new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
 		this.originalProductName = this.webDriver.findElement(By.cssSelector(".product-link")).getAttribute("innerHTML");
 		this.renameResp = this.client.target(this.xbddInstance.getBaseURL() + "rest/admin/" + this.originalProductName)
 				.request(MediaType.APPLICATION_JSON_TYPE).put(Entity.json("{\"name\": \"" + this.newProductName + "\"}"));
@@ -73,14 +73,14 @@ public class AdminStepdefs {
 	@When("^the new name is set to an already existing name$")
 	public void the_new_name_is_set_to_an_already_existing_name() {
 		this.webDriver.navigate().to(this.xbddInstance.getBaseURL());
-		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
+//		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
 		this.newProductName = this.webDriver.findElement(By.cssSelector(".product-link")).getAttribute("innerHTML");
 	}
 
 	@When("^the user deletes the test report$")
 	public void the_user_deletes_the_test_report() {
 		this.webDriver.navigate().to(this.xbddInstance.getBaseURL());
-		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
+//		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product-action-menu button")));
 		this.ProductQuant = this.webDriver.findElements(By.cssSelector(".delete-product")).size();
 		final String ProductName = this.webDriver.findElement(By.cssSelector(".product-link")).getAttribute("innerHTML");
 		final WebTarget webTarget = this.client.target(this.xbddInstance.getBaseURL() + "rest/admin/delete/" + ProductName);
@@ -115,14 +115,14 @@ public class AdminStepdefs {
 	@Then("^the delete option is not visible$")
 	public void the_delete_option_is_not_visible() {
 		this.webDriver.navigate().to(this.xbddInstance.getBaseURL());
-		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".page-zone h2")));
+	//	new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".page-zone h2")));
 		assertThat(this.webDriver.findElements(By.cssSelector(".delete-product")).size(), is(0));
 	}
 
 	@Then("^the report for the product is no longer available$")
 	public void the_report_for_the_product_is_no_longer_available() {
 		this.webDriver.navigate().to(this.xbddInstance.getBaseURL());
-		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products-container")));
+//		new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".products-container")));
 		assertThat(this.webDriver.findElements(By.cssSelector(".delete-product")).size(), is(this.ProductQuant - 1));
 	}
 

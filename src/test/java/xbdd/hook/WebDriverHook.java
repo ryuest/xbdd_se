@@ -22,27 +22,11 @@ import xbdd.XbddDriver;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 
-public class WebDriverHook {
-	private final XbddDriver driver;
+public class WebDriverHook extends XbddDriver{
+	//private final XbddDriver driver;
 
-	public WebDriverHook(final XbddDriver driver) {
-		this.driver = driver;
-	}
 
-	@After("@browser")
-	public void after(final Scenario result) {
-		embedScreenshot(result);
-		this.driver.quit();
-	}
 
-	private void embedScreenshot(final Scenario result) {
-		try {
-			final byte[] screenshot = this.driver.getScreenshotAs(OutputType.BYTES);
-			result.embed(screenshot, "image/png");
-		} catch (final UnsupportedOperationException somePlatformsDontSupportScreenshots) {
-			System.err.println(somePlatformsDontSupportScreenshots.getMessage());
-		} catch (final WebDriverException e) {
-			result.write("WARNING. Failed take screenshots with exception:" + e.getMessage());
-		}
-	}
+
+
 }

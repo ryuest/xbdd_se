@@ -41,7 +41,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.mongodb.DBObject;
 
-public class ReportManager {
+public class ReportManager extends XbddDriver{
 
 	public static String FEATURE_LIST_ID = "featureIndex";
 
@@ -118,10 +118,10 @@ public class ReportManager {
 	/**
 	 * Create a new XBDDFileHelper REST service helper which provides methods for managing report
 	 */
-	public ReportManager(final XbddDriver webDriver, final XBDDInstance xbddInstance) {
+	public ReportManager(final XBDDInstance xbddInstance) {
 		this.xbddInstance = xbddInstance;
 		this.client = JerseyClientFactory.getInstance().createAuthenticatingClient();
-		this.webDriver = webDriver;
+		this.webDriver = driver;
 	}
 
 	/**
@@ -223,13 +223,15 @@ public class ReportManager {
 	 * @param reportContext The context of the report
 	 * @param feature The name of the feature
 	 * @param scenarioPathParam The part of scenario id
-	 * @param scenarioName The name of the scenario
+
 	 * 
 	 * @return the summary of the scenario
 	 */
 	public ScenarioSummary openScenario(final ReportContext reportContext, final String feature, final String scenarioPathParam) {
 		openFeature(reportContext, feature);
-		final String id = feature + "\\;" + scenarioPathParam;
+	/*
+
+				final String id = feature + "\\;" + scenarioPathParam;
 		new WebDriverWait(this.webDriver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("#" + id + " .scenario-name")))
 				.click();
 
@@ -239,48 +241,32 @@ public class ReportManager {
 				return WEB_ELEMENT_SCENARIO_SUMMARY.apply(driver.findElement(By.cssSelector("#" + id)));
 			}
 		});
+		*/
+		final String id = feature + "\\;" + scenarioPathParam;
+		WebDriver driver = null;
+		return WEB_ELEMENT_SCENARIO_SUMMARY.apply(driver.findElement(By.cssSelector("#" + id)));
+
 	}
 
 	/**
 	 * Return the list of features from a report.
 	 * 
 	 * @return a list of {@link FeatureSummary}s. Will not be empty.
-	 * @throws {@link TimeoutException} if no features are found within 20 seconds.
+	 *
 	 * */
 	public List<FeatureSummary> getFeatures() {
-		return new WebDriverWait(this.webDriver, 20)
-				.until(new Function<WebDriver, List<FeatureSummary>>() {
-					@Override
-					public List<FeatureSummary> apply(final WebDriver driver) {
-						final List<WebElement> featureElements = driver.findElement(By.id(FEATURE_LIST_ID)).findElements(
-								By.cssSelector(".feature-index-entry"));
-						// when the test runs really fast, it sometimes gets the element but returns an empty array
-						if (featureElements.isEmpty()) {
-							return null;
-						}
 
-						return Lists.transform(featureElements, WEB_ELEMENT_TO_FEATURE_SUMMARY);
+				return null;
 					}
-				});
-	}
+
 
 	public FeatureSummary getFeature() {
-		return new WebDriverWait(this.webDriver, 20)
-				.until(new Function<WebDriver, FeatureSummary>() {
-					@Override
-					public FeatureSummary apply(final WebDriver driver) {
-						return WEB_ELEMENT_TO_FEATURE_SUMMARY.apply(driver.findElement(By.cssSelector(".feature")));
-					}
-				});
+
+			return null;
 	}
 
 	public FeatureSummary getFeatureSummary(final String summaryId) {
-		return new WebDriverWait(this.webDriver, 20).until(new Function<WebDriver, FeatureSummary>() {
-			@Override
-			public FeatureSummary apply(final WebDriver driver) {
-				return WEB_ELEMENT_TO_FEATURE_SUMMARY.apply(driver.findElement(By.id(summaryId)));
-			}
-		});
+		return null;
 	}
 
 	/**

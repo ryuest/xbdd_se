@@ -29,7 +29,7 @@
 		<version.minor>1</version.minor>
 		<version.servicepack>0</version.servicepack>
 		<cucumberJvmVersion>1.1.8</cucumberJvmVersion>
-		<jersey-version>2.4.1</jersey-version>
+		<jersey-version>2.21</jersey-version>
 		<xbdd.mongo.hostname>cluster0-shard-00-00-l60c1.mongodb.net</xbdd.mongo.hostname>
 		<xbdd.mongo.port>27017</xbdd.mongo.port>
 		<xbdd.mongo.username>test</xbdd.mongo.username>
@@ -173,7 +173,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<keystore>C://User//Juri//.keystore</keystore>
+					<keystore>C://User//Zer//.keystore</keystore>
 					<dname>cn=localhost</dname>
 					<keypass>Password1</keypass>
 					<storepass>Password1</storepass>
@@ -222,43 +222,6 @@
 						<id>stop</id>
 						<goals>
 							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<path>/xbdd</path>
-					<port>${tomcat.http.port}</port>
-					<httpsPort>${tomcat.https.port}</httpsPort>
-					<ajpPort>${tomcat.ajp.port}</ajpPort>
-					<keystoreFile>C://Users//Juri//.keystore</keystoreFile>
-					<keystorePass>Password1</keystorePass>
-					<tomcatUsers>src/main/tomcatconf/tomcat-users.xml</tomcatUsers>
-					<contextFile>src/test/resources/conf/contextFile.xml</contextFile>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-tomcat</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<port>${tomcat.http.port}</port>
-							<httpsPort>${tomcat.https.port}</httpsPort>
-							<ajpPort>${tomcat.ajp.port}</ajpPort>
-							<fork>true</fork>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-tomcat</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>shutdown</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -629,7 +592,7 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>${jersey-version}</version>
+			<version>2.0-m04</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.guava</groupId>
@@ -646,7 +609,7 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-mvc-jsp</artifactId>
-			<version>${jersey-version}</version>
+			<version>2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
@@ -711,8 +674,8 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>[2.34,)</version>
-			<scope>test</scope>
+			<version>3.7.1</version>
+		<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.guava</groupId>
